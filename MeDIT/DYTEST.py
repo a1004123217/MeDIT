@@ -1,3 +1,1 @@
-print('hello bro')
-print('id like to test')
-print('hey its me')
+print('all is done')
