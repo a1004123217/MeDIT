@@ -78,6 +78,10 @@ class h5ReaderConnection(QMainWindow, Ui_h5Reader):
                 cuttentnode2.setText(0, str('np.ndarray2D'))
                 cuttentnode2.setText(1, str(data_value.shape))
                 self.ProcessArray2D(data_value)
+            else:
+                cuttentnode3 = QTreeWidgetItem(node)
+                cuttentnode3.setText(0, str('np.ndarray'))
+                cuttentnode3.setText(1, str(data_value.shape))
             # plt.imshow(data_np[2])
             # plt.show()
 
