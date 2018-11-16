@@ -1,11 +1,10 @@
 import numpy as np
 import h5py
-import os
 import sys
-from copy import deepcopy
-import matplotlib.pyplot as plt
+import MatplotlibWidget
 from PyQt5.QtWidgets import *
-from MeDIT.h5Reader import *
+from MeDIT.DataViewer.MatplotlibWidget import *
+from MeDIT.DataViewer.h5Reader import *
 # from MeDIT.SaveAndLoad import LoadH5Info, LoadH5
 
 
@@ -115,10 +114,31 @@ class h5ReaderConnection(QMainWindow, Ui_h5Reader):
 
     def ProcessArray2D(self, data):
         print('2D clicked')
+        tb = self.tableWidget
+        tb.clear()
+        rows = data.shape[0]
+        cols = data.shape[1]
+        tb.setRowCount(rows)
+        tb.setColumnCount(cols)
+        for row_index in range(rows):
+            for col_index in range(cols):
+                tb.setItem(row_index, col_index, QTableWidgetItem(str(data[row_index, col_index])))
+        self.showImage(data)
 
     def ProcessArray3D(self, data):
         print('3D clicked')
 
+    def showImage(self, data):
+        print('show data image')
+        current_plt = self.matplotWidget
+        current_plt.fig.clear()
+
+        subplot = current_plt.getFigure().add_subplot(111)
+        subplot.plot(data)
+        current_plt.draw()
+        # plt.imshow(data, cmap='gray')
+        # if len(data.shape) == 2:
+        #     print(len(data.shape))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
